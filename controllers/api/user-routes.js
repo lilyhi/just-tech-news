@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const { User, Post, Vote, Comment } = require('../../models');
-// const { create } = require('../../models/User');
-//i dont think i added this one
+
 
 // GET /api/users
 router.get('/', (req, res) => {
