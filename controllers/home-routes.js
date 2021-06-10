@@ -4,6 +4,8 @@ const { Post, User, Comment, Vote } = require('../models');
 
 // get all posts for homepage
 router.get('/', (req, res) => {
+  console.log(req.session);
+  // console.log('======================'); from snapshot 
   Post.findAll({
     attributes: [
       'id',
@@ -28,9 +30,9 @@ router.get('/', (req, res) => {
     ]
   })
     .then(dbPostData => {
-      // pass a single post object into the homepage template
-      console.log(dbPostData[0]);
+      // pass a single post object into the homepage template - this is no longer just a single post i think?
       const posts = dbPostData.map(post => post.get({ plain: true}));
+
       res.render('homepage', { posts });
     })
     .catch(err => {
@@ -38,5 +40,18 @@ router.get('/', (req, res) => {
       res.status(500).json(err);
     });
 });
+
+
+// get login page
+router.get('/login', (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/');
+    return;
+  }
+
+  res.render('login');
+});
+
+
 
 module.exports = router;
