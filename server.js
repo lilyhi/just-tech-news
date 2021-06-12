@@ -23,12 +23,16 @@ const sess = {
 
 app.use(session(sess));
 
+const helpers = require('./utils/helpers');
+
+
 // turn on routes
 // app.use(routes);
 // now gone from the snapshot?
 
 // apps template of choice
-const hbs = exphbs.create({});
+// pass the helpers in create()
+const hbs = exphbs.create({ helpers });
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
